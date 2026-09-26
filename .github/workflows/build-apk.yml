@@ -1,0 +1,45 @@
+# .github/workflows/build-apk.yml
+# Tự động build file APK mỗi khi push code hoặc bấm chạy thủ công (workflow_dispatch).
+# Sau khi chạy xong, vào tab "Actions" trên GitHub -> chọn lần chạy -> mục "Artifacts"
+# để tải file APK về máy.
+
+name: Build Android APK
+
+on:
+  push:
+    branches: [ "main", "master" ]
+    paths:
+      - "android/**"
+      - ".github/workflows/build-apk.yml"
+  pull_request:
+    branches: [ "main", "master" ]
+  workflow_dispatch: {}
+
+jobs:
+  build:
+    name: Build Debug APK
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout mã nguồn
+        uses: actions/checkout@v4
+
+      - name: Cài đặt JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: "17"
+
+      - name: Cấp quyền thực thi cho gradlew
+        run: chmod +x android/gradlew
+
+      - name: Build APK (debug)
+        working-directory: android
+        run: ./gradlew assembleDebug --stacktrace
+
+      - name: Tải APK lên làm Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: kcn-game-debug-apk
+          path: android/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
