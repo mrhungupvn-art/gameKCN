@@ -1,0 +1,21 @@
+# ---- Android ----
+android/.gradle/
+android/build/
+android/app/build/
+android/local.properties
+android/.idea/
+android/*.iml
+android/captures/
+android/.cxx/
+android/.externalNativeBuild/
+
+# ---- Node / Backend ----
+backend/node_modules/
+backend/data/*.db
+backend/data/*.db-shm
+backend/data/*.db-wal
+backend/.env
+
+# ---- OS ----
+.DS_Store
+Thumbs.db
