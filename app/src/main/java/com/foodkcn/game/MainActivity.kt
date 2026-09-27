@@ -75,7 +75,7 @@ class MainActivity : Activity() {
             setBackgroundColor(Color.rgb(17, 24, 39))
         }
         val box = baseLayout().apply {
-            layoutParams = ScrollView.LayoutParams(-1, -2)
+            layoutParams = ViewGroup.LayoutParams(-1, -2)
             setPadding(24, 20, 24, 32)
         }
 
